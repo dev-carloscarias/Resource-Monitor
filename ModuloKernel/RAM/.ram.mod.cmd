@@ -1,1 +1,0 @@
-cmd_/home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/RAM/ram.mod := { echo  /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/RAM/ram.o; echo; } > /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/RAM/ram.mod
