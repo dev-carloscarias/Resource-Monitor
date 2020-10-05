@@ -1,0 +1,1 @@
+cmd_/home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.ko /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.o /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.mod.o;  true

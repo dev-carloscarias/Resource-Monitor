@@ -1,0 +1,1 @@
+cmd_/home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.mod := { echo  /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.o; echo; } > /home/devcc/DEVELOP/Resource-Monitor/ModuloKernel/CPU/cpu.mod
