@@ -6,29 +6,22 @@
 #include <linux/module.h>
 #include <linux/seq_file.h>
 #include <linux/proc_fs.h>
-
 #include <linux/mm.h>
 #include <linux/mman.h>
 #include <linux/mmzone.h>
-
-#include <linux/quicklist.h>
-
 #include <linux/swap.h>
 #include <linux/vmstat.h>
 #include <linux/atomic.h>
 #include <asm/page.h>
 #include <asm/pgtable.h>
-
 #include <linux/cpumask.h>
 #include <linux/interrupt.h>
 #include <linux/kernel_stat.h>
 #include <linux/slab.h>
 #include <linux/time.h>
 #include <linux/irqnr.h>
-
 #include <linux/tick.h>
 #include <asm/apic.h>
-
 #include <linux/smp.h>
 #include <linux/timex.h>
 #include <linux/string.h>
@@ -113,14 +106,12 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	}
 	sum += user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	seq_printf(m, "{");
-	seq_printf(m, "\"cpu\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(sum));
-	seq_printf(m, ",\"used\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((idle / sum) * 100));
+	seq_printf(m, "\"used\":");
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((sum - idle)/1024));
 	seq_printf(m, ",\"free\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(sum - idle));
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(idle/1024));
 	seq_printf(m, ",\"average\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(((sum - idle) * 100 / sum)));
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(((sum - idle) * 100 / sum)/1024));
 	seq_printf(m, "}");
 	return 0;
 }
