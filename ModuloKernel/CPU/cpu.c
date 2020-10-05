@@ -61,7 +61,6 @@ static u64 get_idle_time(int cpu)
 	if (cpu_online(cpu))
 		idle_time = get_cpu_idle_time_us(cpu, NULL);
 	if (idle_time == -1ULL)
-		/* !NO_HZ or cpu offline so we can rely on cpustat.idle */
 		idle = kcpustat_cpu(cpu).cpustat[CPUTIME_IDLE];
 	else
 		idle = nsecs_to_jiffies64(idle_time);
@@ -76,7 +75,6 @@ static u64 get_iowait_time(int cpu)
 		iowait_time = get_cpu_iowait_time_us(cpu, NULL);
 
 	if (iowait_time == -1ULL)
-		/* !NO_HZ or cpu offline so we can rely on cpustat.iowait */
 		iowait = kcpustat_cpu(cpu).cpustat[CPUTIME_IOWAIT];
 	else
 		iowait = nsecs_to_jiffies64(iowait_time);
@@ -88,9 +86,6 @@ static u64 get_iowait_time(int cpu)
 
 static int meminfo_proc_show(struct seq_file *m, void *v)
 {
-	/**
-	 * DECLARAR VARIABLES
-	 * */
 	int i;
 	unsigned long jif;
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
@@ -103,7 +98,6 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	guest = guest_nice = 0;
 	getboottime(&boottime);
 	jif = boottime.tv_sec;
-	//Recolectar informaciòn de cada CPU y aumentar las variables/contadores
 	for_each_possible_cpu(i)
 	{
 		user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
@@ -117,9 +111,7 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 		guest += kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
 		guest_nice += kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
 	}
-	//El total del cpu es la suma de todos los atributos
 	sum += user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
-	//crear el json, al ser de tipo u64, se debe utilizar cputime64_to_clock_t
 	seq_printf(m, "{");
 	seq_printf(m, "\"cpu\":");
 	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(sum));
@@ -133,7 +125,7 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	return 0;
 }
 
-static void __exit final(void) //Salida de modulo
+static void __exit final(void)
 {
 	printk(KERN_INFO "Cleaning Up.\n");
 }
@@ -149,7 +141,7 @@ static const struct file_operations meminfo_proc_fops = {
 	.llseek = seq_lseek,
 	.release = single_release,
 };
-static int __init inicio(void) //Escribe archivo en /proc
+static int __init inicio(void)
 {
 	proc_create("cpu-info", 0, NULL, &meminfo_proc_fops);
 	return 0;

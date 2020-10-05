@@ -15,8 +15,6 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
     si_meminfo(&i);
     for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
         pages[lru] = global_numa_state(NR_LRU_BASE + lru);        
-        //CREAR EL JSON, LA FUNCION K() devuelve el equivalente en kb,
-        //se divide por 1024 para obtener los megas
     seq_printf(m, "{");
     seq_printf(m, "\"ram\": %8lu,",K(i.totalram)/1024);
     seq_printf(m, "\"used\": %8lu,",(K(i.totalram)-K(i.freeram))/1024);
@@ -27,7 +25,7 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
     return 0;
 }
 
-static void __exit final(void) //Salida de modulo
+static void __exit final(void)
 {
     printk(KERN_INFO "Cleaning Up.\n");
 }
@@ -43,7 +41,7 @@ static const struct file_operations meminfo_proc_fops = {
     .llseek = seq_lseek,
     .release = single_release,
 };
-static int __init inicio(void) //Escribe archivo en /proc
+static int __init inicio(void)
 {
     proc_create("ram-info", 0, NULL, &meminfo_proc_fops);
     return 0;
