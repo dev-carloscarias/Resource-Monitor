@@ -1,0 +1,1 @@
+cmd_/home/carloscariasingenieria/Resource-Monitor/ModuloKernel/RAM/ram.mod := { echo  /home/carloscariasingenieria/Resource-Monitor/ModuloKernel/RAM/ram.o; echo; } > /home/carloscariasingenieria/Resource-Monitor/ModuloKernel/RAM/ram.mod
