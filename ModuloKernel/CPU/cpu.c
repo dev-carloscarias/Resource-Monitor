@@ -107,7 +107,7 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	sum += user + nice + system;
 	seq_printf(m, "{");
 	seq_printf(m, "\"used\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((sum  / (sum + idle + iowait))*100));
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(((sum + idle + iowait)/sum)*100));
 	seq_printf(m, ",\"free\":");
 	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(idle + iowait));
 	seq_printf(m, "}");
