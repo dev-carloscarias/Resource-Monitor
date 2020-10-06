@@ -64,5 +64,9 @@ def add_autor():
         r = requests.post(URL_SERVERB+'/user',json = body)
         return r.text
 
+@app.route('/', methods=['GET'])
+def get_server():
+    return "SERVER 1 OK"
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+     app.run(host = '0.0.0.0', port = 80, debug = True)
