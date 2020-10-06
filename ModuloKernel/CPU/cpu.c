@@ -104,14 +104,12 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 		guest += kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
 		guest_nice += kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
 	}
-	sum += user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
+	sum += user + nice + system;
 	seq_printf(m, "{");
 	seq_printf(m, "\"used\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((sum - idle)/1024));
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((sum  / (sum + idle + iowait))*100));
 	seq_printf(m, ",\"free\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(idle/1024));
-	seq_printf(m, ",\"average\":");
-	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(((sum - idle) * 100 / sum)/1024));
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(idle + iowait));
 	seq_printf(m, "}");
 	return 0;
 }

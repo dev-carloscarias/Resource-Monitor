@@ -1,1 +1,0 @@
-cmd_/home/carloscariasingenieria/Resource-Monitor/ModuloKernel/CPU/cpu.mod := { echo  /home/carloscariasingenieria/Resource-Monitor/ModuloKernel/CPU/cpu.o; echo; } > /home/carloscariasingenieria/Resource-Monitor/ModuloKernel/CPU/cpu.mod

@@ -16,10 +16,10 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
     for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
         pages[lru] = global_numa_state(NR_LRU_BASE + lru);        
     seq_printf(m, "{");
-    seq_printf(m, "\"ram\": %8lu,",K(i.totalram)/1024);
-    seq_printf(m, "\"used\": %8lu,",(K(i.totalram)-K(i.freeram))/1024);
-    seq_printf(m, "\"free\": %8lu,",K(i.freeram)/1024);
-    seq_printf(m, "\"average\": %8lu",(((K(i.totalram)-K(i.freeram))/1024)*100 )/ (K(i.totalram)/1024));
+    seq_printf(m, "\"used\":");
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t((K(i.totalram)-K(i.freeram))/1024));
+    seq_printf(m, ",\"free\":");
+	seq_put_decimal_ull(m, " ", jiffies_64_to_clock_t(K(i.freeram)/1024));
     seq_printf(m, "}");
 #undef K
     return 0;
