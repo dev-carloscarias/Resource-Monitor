@@ -8,8 +8,8 @@ services:
         ports:
             - "0.0.0.0:5000:5000"
         volumes:
-            - /proc/cpu-info:/app/src/cpu.txt
-            - /proc/ram-info:/app/src/ram.txt
+            - /proc/cpu-info:/usr/src/app/cpu.txt
+            - /proc/ram-info:/usr/src/app/ram.txt
         depends_on:
             - mongodb
 

@@ -1,4 +1,5 @@
-FROM python:2.7
-ADD . /todo
-WORKDIR /todo
+FROM python:3.6.1-alpine
+WORKDIR /project
+ADD . /project
 RUN pip install -r requirements.txt
+CMD ["python","app.py"]
