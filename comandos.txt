@@ -1,0 +1,11 @@
+sudo apt-get update
+sudo apt-get install build-essential linux-headers-$(uname -r)
+sudo apt-get install docker.io
+sudo systemctl start docker
+git clone https://github.com/dev-carloscarias/Resource-Monitor.git
+sudo apt-get install docker-compose
+sudo apt install gnupg2 pass
+sudo docker login
+sudo docker build -t server-ab .
+sudo docker tag server-ab yournightmare777/server-ab
+sudo docker push yournightmare777/server-ab

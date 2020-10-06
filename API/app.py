@@ -20,14 +20,14 @@ def main_message():
 def get_cpu():
     with open('/usr/src/app/cpu.txt') as json_file:
         data = json.load(json_file)
-        usado = src(data['used'])
+        usado = str(data['used'])
         return usado
 
 @app.route('/ram')
 def get_ram():
     with open('/usr/src/app/ram.txt') as json_file:
         data = json.load(json_file)
-        usado = src(data['used']) 
+        usado = str(data['used']) 
         return usado
 
 @app.route('/users', methods=['GET'])
