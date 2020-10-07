@@ -50,7 +50,9 @@ def main_menu():
                     print("Error: url empty")
                     return -1
                 for objct in post_objects:
-                    x = requests.post(url, data = objct)
+                    headers = {'content-type': 'application/json'}
+                    x = requests.post(url, data=objct, headers=headers)
+                    print(x.text)
             elif(option==5):
                 print("EXIT...")
                 return 1
