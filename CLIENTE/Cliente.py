@@ -56,7 +56,7 @@ def main_menu():
             elif(option==5):
                 print("EXIT...")
                 return 1
-    except:
-        print("Opcion invalida, debe ser un numero...")
+    except Exception as e: 
+        print(e)
         return -1
 main_menu()
